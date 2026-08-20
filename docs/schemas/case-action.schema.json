@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "CaseAction",
+  "description": "A case/action lifecycle event published to the `case-actions` topic. Produced by the alert/case API and by analyst decisions.",
+  "type": "object",
+  "required": [
+    "case_id", "alert_id", "action_type", "status", "actor", "timestamp"
+  ],
+  "properties": {
+    "case_id": {"type": "string", "format": "uuid"},
+    "alert_id": {"type": "string", "format": "uuid"},
+    "action_type": {
+      "type": "string",
+      "enum": ["card_lock", "contact_customer", "no_action", "escalate"]
+    },
+    "status": {
+      "type": "string",
+      "enum": ["recommended", "approved", "rejected", "executed"]
+    },
+    "actor": {
+      "type": "string",
+      "description": "agent_id for an agent-produced recommendation, or analyst_id for a human decision"
+    },
+    "timestamp": {"type": "string", "format": "date-time"},
+    "notes": {"type": ["string", "null"]}
+  }
+}

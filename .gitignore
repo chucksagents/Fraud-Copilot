@@ -1,0 +1,24 @@
+# Environment
+infra/.env
+*.env
+!infra/.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Data / DB
+*.db
+data-gen/fixtures/*.json
+!data-gen/fixtures/.gitkeep
+
+# Node (if any tooling ends up here)
+node_modules/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/

@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "FraudAlert",
+  "description": "An alert published by Flink to the `fraud-alerts` topic when a deterministic rule fires.",
+  "type": "object",
+  "required": [
+    "alert_id", "generated_at", "customer_id", "account_id",
+    "rule_triggered", "severity", "related_event_ids", "status"
+  ],
+  "properties": {
+    "alert_id": {"type": "string", "format": "uuid"},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "customer_id": {"type": "string"},
+    "account_id": {"type": ["string", "null"]},
+    "rule_triggered": {
+      "type": "string",
+      "enum": [
+        "high_velocity",
+        "multiple_failed_logins",
+        "new_or_unusual_device",
+        "impossible_travel",
+        "amount_anomaly"
+      ]
+    },
+    "severity": {"type": "string", "enum": ["low", "medium", "high"]},
+    "related_event_ids": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": {"type": "string"},
+      "description": "Rule-specific supporting fields, stringified (e.g. transaction_count, window_seconds, prior_device_ids, distance_km). Kept as a string map so it maps cleanly to Flink's MAP<STRING, STRING>."
+    },
+    "status": {"type": "string", "enum": ["new", "investigating", "resolved"]}
+  }
+}

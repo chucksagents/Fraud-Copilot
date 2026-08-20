@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "LoginEvent",
+  "description": "An authentication event published to the `login-events` topic.",
+  "type": "object",
+  "required": [
+    "event_id", "event_type", "timestamp", "customer_id", "device_id",
+    "ip_address", "auth_method", "success"
+  ],
+  "properties": {
+    "event_id": {"type": "string", "format": "uuid"},
+    "event_type": {"type": "string", "const": "login"},
+    "timestamp": {"type": "string", "format": "date-time"},
+    "customer_id": {"type": "string"},
+    "device_id": {"type": "string"},
+    "ip_address": {"type": "string"},
+    "location": {
+      "type": "object",
+      "properties": {
+        "city": {"type": "string"},
+        "country": {"type": "string"}
+      }
+    },
+    "auth_method": {"type": "string", "enum": ["password", "otp", "biometric"]},
+    "success": {"type": "boolean"},
+    "failure_reason": {"type": ["string", "null"]}
+  }
+}

@@ -1,0 +1,5 @@
+jsonschema>=4.22
+python-dotenv>=1.0
+# confluent-kafka is only needed for --sink kafka; install separately once
+# Confluent Cloud (or local Kafka) access is confirmed:
+#   pip install confluent-kafka>=2.4
