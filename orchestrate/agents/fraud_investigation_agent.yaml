@@ -1,7 +1,7 @@
 spec_version: v1
 kind: native
 name: fraud_investigation_agent
-llm: watsonx/ibm/granite-3-8b-instruct  # swap for whatever's available: `orchestrate models list`
+llm: groq/openai/gpt-oss-120b
 style: default
 description: >
   Investigates a fraud alert raised by the streaming detection pipeline,
