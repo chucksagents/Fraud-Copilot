@@ -5,8 +5,8 @@ alert/case API for Orchestrate agents and analysts.
 
 - A background thread consumes `fraud-alerts` continuously and persists
   each alert into SQLite, auto-opening a `Case` for it.
-- `GET /alerts` -- list alerts (filterable by `rule_triggered`, `severity`;
-  paginated with `limit`/`offset`), newest-ingested first.
+- `GET /alerts` -- list alerts (filterable by `customer_id`, `rule_triggered`,
+  `severity`; paginated with `limit`/`offset`), newest-ingested first.
 - `GET /alerts/{alert_id}` -- a single alert, with its `case_id`.
 - `POST /cases/{case_id}/actions` -- record a case action (`card_lock`,
   `contact_customer`, `no_action`, `escalate`) and republish it to the
@@ -53,6 +53,9 @@ curl http://localhost:8000/alerts | python3 -m json.tool
 
 # Filter to one rule
 curl "http://localhost:8000/alerts?rule_triggered=multiple_failed_logins"
+
+# Filter to one customer
+curl "http://localhost:8000/alerts?customer_id=cust_9c5c8c181993"
 
 # Grab a case_id from one of the above, then act on it
 curl -X POST http://localhost:8000/cases/<case_id>/actions \

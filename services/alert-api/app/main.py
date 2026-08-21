@@ -58,6 +58,7 @@ def health() -> dict:
 
 @app.get("/alerts", response_model=list[AlertOut])
 def list_alerts(
+    customer_id: Optional[str] = Query(default=None),
     rule_triggered: Optional[str] = Query(default=None),
     severity: Optional[str] = Query(default=None),
     limit: int = Query(default=50, le=500),
@@ -65,6 +66,8 @@ def list_alerts(
     db: Session = Depends(get_db),
 ):
     stmt = select(Alert)
+    if customer_id:
+        stmt = stmt.where(Alert.customer_id == customer_id)
     if rule_triggered:
         stmt = stmt.where(Alert.rule_triggered == rule_triggered)
     if severity:
