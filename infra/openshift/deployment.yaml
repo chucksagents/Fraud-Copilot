@@ -1,0 +1,102 @@
+# `image: alert-api:latest` is a short name, not a full pullspec -- it only
+# resolves to the ImageStream after you run `oc set image-lookup alert-api`
+# (README.md step 6). Until then the pod will fail to pull "alert-api:latest"
+# from Docker Hub.
+#
+# No explicit securityContext.fsGroup here on purpose. The original version
+# of this manifest pinned fsGroup: 0 so the CSI driver would mount the PVC
+# group-writable by group 0 -- the group every arbitrary-UID OpenShift
+# container runs as -- so the app could write alerts.db to /data. That works
+# on a self-managed cluster, but Red Hat Developer Sandbox's restricted-v2/
+# restricted-v3 SCCs explicitly reject a hardcoded fsGroup (including 0):
+# `.spec.securityContext.fsGroup: Invalid value: [0]: 0 is not an allowed
+# group`. Sandbox instead auto-assigns an fsGroup from a namespace-specific
+# range and adds it as a supplemental group on the pod -- which still makes
+# the PVC writable regardless of the container's primary group -- so leaving
+# fsGroup unset lets that happen instead of fighting it. (The image itself is
+# still separately patched for the /app-but-not-PVC parts -- see the
+# Dockerfile's `chgrp -R 0 /app && chmod -R g=u /app` line.)
+#
+# image.openshift.io/triggers below replaces relying on `oc set image-lookup`
+# alone. On this Sandbox cluster, plain local-lookup admission wasn't
+# rewriting the Deployment's `image: alert-api:latest` short name to the
+# ImageStream's real internal pullspec -- pods just tried (and failed) to
+# pull "alert-api:latest" straight from Docker Hub. This annotation asks the
+# separate image-trigger controller to actively watch the alert-api:latest
+# ImageStreamTag and patch spec.template.spec.containers[0].image with the
+# resolved image-registry.openshift-image-registry.svc:5000/... pullspec
+# whenever it changes -- which also means a fresh `oc start-build` will
+# auto-trigger a new rollout from now on, no more manual `oc rollout restart`
+# needed after every build.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: alert-api
+  labels:
+    app: alert-api
+  annotations:
+    image.openshift.io/triggers: >-
+      [{"from":{"kind":"ImageStreamTag","name":"alert-api:latest"},"fieldPath":"spec.template.spec.containers[?(@.name==\"alert-api\")].image"}]
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: alert-api
+  template:
+    metadata:
+      labels:
+        app: alert-api
+    spec:
+      containers:
+        - name: alert-api
+          image: alert-api:latest
+          ports:
+            - containerPort: 8000
+          envFrom:
+            # Created via: oc create secret generic alert-api-env
+            #                --from-env-file=infra/.env
+            # (README.md step 4) -- reuses the same Kafka credentials the
+            # producers and local alert-api already read from infra/.env.
+            - secretRef:
+                name: alert-api-env
+          env:
+            # Explicit env: entries override same-named vars pulled in via
+            # envFrom above -- these two intentionally diverge from
+            # whatever infra/.env has locally:
+            - name: ALERT_API_DB_URL
+              value: sqlite:////data/alerts.db
+            - name: ALERT_API_CONSUMER_GROUP
+              # Distinct from the local run's default "alert-api" group id
+              # on purpose: if you run this deployment and a local
+              # `uvicorn` at the same time against the same Confluent Cloud
+              # topic, sharing a consumer group would split fraud-alerts
+              # partitions between them -- each would only see some
+              # alerts. A separate group lets both consume everything
+              # independently.
+              value: alert-api-openshift
+          volumeMounts:
+            - name: data
+              mountPath: /data
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8000
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              cpu: 500m
+              memory: 512Mi
+      volumes:
+        - name: data
+          persistentVolumeClaim:
+            claimName: alert-api-data

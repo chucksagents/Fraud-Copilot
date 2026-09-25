@@ -10,7 +10,19 @@ import sys
 from pathlib import Path
 from typing import Optional
 
-REPO_ROOT = Path(__file__).resolve().parents[3]
+# parents[3] assumes the local layout (services/alert-api/app/config.py,
+# 3 levels below the repo root). Inside the container the app is copied to
+# a shallower path (/app/app/config.py -- see the Dockerfile's
+# `COPY app/ ./app/`), where parents[3] doesn't exist and raises IndexError
+# before we ever get to the ENV_FILE.exists() check below. Fall back to the
+# file's own parent in that case -- harmless, since in-container ENV_FILE
+# was never going to exist anyway (the Dockerfile doesn't COPY infra/), and
+# real config there comes entirely from injected env vars
+# (envFrom/secretRef in infra/openshift/deployment.yaml), not infra/.env.
+try:
+    REPO_ROOT = Path(__file__).resolve().parents[3]
+except IndexError:
+    REPO_ROOT = Path(__file__).resolve().parent
 SCHEMAS_DIR = REPO_ROOT / "docs" / "schemas"
 ENV_FILE = REPO_ROOT / "infra" / ".env"
 

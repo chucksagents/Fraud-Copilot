@@ -36,6 +36,15 @@ resulting `https://*.trycloudflare.com` URL below and re-running
 `orchestrate tools import` every time the tunnel restarts, since it
 hands out a new random URL each run).
 
+**Longer-term fix for the tunnel's stale-URL problem**: once
+`services/alert-api` is deployed to OpenShift (see
+`infra/openshift/README.md`), swap ALERT_API_BASE_URL below for that
+deployment's Route host instead. A Route is a stable public HTTPS
+endpoint -- it works from Developer Edition *and* SaaS unchanged, doesn't
+regenerate on restart the way the tunnel does, and you can stop running
+`cloudflared` entirely. Re-run `orchestrate tools import` once after
+switching, same as any other edit to this file.
+
 Kept as a plain constant rather than an Orchestrate "connection" (which
 is really for per-app credentials, e.g. API keys/bearer tokens) since
 this API has no auth yet -- straightforward to swap for
@@ -48,21 +57,18 @@ import requests
 
 from ibm_watsonx_orchestrate.agent_builder.tools import tool
 
-# --- EDIT ME: update every time your cloudflared tunnel restarts ---
-# Switched to a tunnel after host.docker.internal and host.lima.internal
-# both got connection-refused from inside whatever VM Developer Edition's
-# tool execution actually runs in -- couldn't pin down why from outside
-# it, and a public URL sidesteps the question entirely regardless of the
-# VM/container internals underneath.
+# --- EDIT ME only if this Route ever changes ---
+# `alert-api` is deployed to Red Hat Developer Sandbox as of 2026-08-24 (see
+# infra/openshift/README.md) -- this is that Deployment's Route host, a
+# stable public HTTPS endpoint. Unlike the old cloudflared tunnel this used
+# to point at, it does NOT change on restart, so there's no more re-running
+# `orchestrate tools import` every time something bounces. Only re-import if
+# this literal URL ever changes (e.g. the Sandbox project is recreated).
 #
-#   brew install cloudflared
-#   cloudflared tunnel --url http://localhost:8010
+#   oc get route alert-api -o jsonpath='{.spec.host}{"\n"}'
 #
-# paste the https://*.trycloudflare.com URL it prints below, then re-run
-# `orchestrate tools import` (see orchestrate/README.md) -- the URL is
-# baked in at import time, not read live, so it goes stale on every
-# tunnel restart (new random URL each run).
-ALERT_API_BASE_URL = "https://REPLACE-ME.trycloudflare.com"
+# would reprint it if you ever need to double check.
+ALERT_API_BASE_URL = "https://alert-api-charlie-oneill-dev.apps.rm2.thpm.p1.openshiftapps.com"
 
 _TIMEOUT_SECONDS = 15
 

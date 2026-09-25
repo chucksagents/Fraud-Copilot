@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: alert-api
+  labels:
+    app: alert-api
+spec:
+  selector:
+    app: alert-api
+  ports:
+    - name: http
+      port: 8000
+      targetPort: 8000
