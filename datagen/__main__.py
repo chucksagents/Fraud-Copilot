@@ -109,13 +109,13 @@ def run_scenario(name: str, sink: Sink, seed: int, tail_seconds: float = 12.0,
                       f"{'ok  ' if event['success'] else 'FAIL'} device={event['device_id']} "
                       f"{event['location']['city']}, {event['location']['country']}")
             print(f"  {event['timestamp']}  {step.topic:<13} {detail}")
-    bg = background(world, random.Random(), anomaly_rate=0)
+    bg = background(world, random.Random(f"{seed}:{name}:tail"), anomaly_rate=0)
     t_end = events.CLOCK.now().timestamp() + tail_seconds
     while events.CLOCK.now().timestamp() < t_end:
         topic, event = next(bg)
         sink.send(topic, event, key=event["customer_id"])
         sink.deliver()
-        events.CLOCK.sleep(0.5)
+        events.CLOCK.sleep(1.0)
     sink.flush()
 
 
@@ -166,7 +166,7 @@ def main(argv=None) -> None:
     p.set_defaults(fn=cmd_load_reference)
 
     p = sub.add_parser("simulate")
-    p.add_argument("--rate", type=float, default=2.0, help="events per second")
+    p.add_argument("--rate", type=float, default=1.0, help="events per second")
     p.add_argument("--anomaly-rate", type=float, default=0.01)
     p.add_argument("--duration", type=float, default=0, help="seconds; 0 = until Ctrl-C")
     p.add_argument("--sink", default="kafka", choices=["kafka", "stdout"])

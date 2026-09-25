@@ -22,3 +22,7 @@ node_modules/
 .DS_Store
 .vscode/
 .idea/
+
+# Generated at runtime
+data/reference/
+.venv/

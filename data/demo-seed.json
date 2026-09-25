@@ -1,0 +1,516 @@
+{
+ "about": "Events and Flink-generated alerts for the four story scenarios. Regenerate with: python tests/flink/harness.py --write-seed",
+ "captured_at": "2026-09-25T14:00:00Z",
+ "events": [
+  {
+   "event_id": "a5489898-806c-47fb-a717-839bb1c174a5",
+   "event_type": "login",
+   "timestamp": "2026-09-25T14:00:40.000Z",
+   "customer_id": "cust_demo_maya",
+   "device_id": "dev_115012e2ccc0",
+   "ip_address": "97.249.191.67",
+   "location": {
+    "city": "New York",
+    "country": "US"
+   },
+   "auth_method": "otp",
+   "success": true,
+   "failure_reason": null,
+   "topic": "login-events"
+  },
+  {
+   "event_id": "eb295dee-d98f-4d60-bf55-50698d4af8ca",
+   "event_type": "login",
+   "timestamp": "2026-09-25T14:00:42.500Z",
+   "customer_id": "cust_demo_maya",
+   "device_id": "dev_e1a34736d198",
+   "ip_address": "59.165.172.127",
+   "location": {
+    "city": "Reykjavik",
+    "country": "IS"
+   },
+   "auth_method": "otp",
+   "success": false,
+   "failure_reason": "bad_password",
+   "topic": "login-events"
+  },
+  {
+   "event_id": "1fc04d21-6bb4-4283-9ae8-7ae202de0474",
+   "event_type": "login",
+   "timestamp": "2026-09-25T14:00:45.000Z",
+   "customer_id": "cust_demo_maya",
+   "device_id": "dev_e1a34736d198",
+   "ip_address": "110.231.182.79",
+   "location": {
+    "city": "Reykjavik",
+    "country": "IS"
+   },
+   "auth_method": "otp",
+   "success": false,
+   "failure_reason": "bad_password",
+   "topic": "login-events"
+  },
+  {
+   "event_id": "13ab27ff-666f-4eb3-aaec-3cccbfbaf304",
+   "event_type": "login",
+   "timestamp": "2026-09-25T14:00:47.500Z",
+   "customer_id": "cust_demo_maya",
+   "device_id": "dev_e1a34736d198",
+   "ip_address": "125.4.80.52",
+   "location": {
+    "city": "Reykjavik",
+    "country": "IS"
+   },
+   "auth_method": "password",
+   "success": false,
+   "failure_reason": "bad_password",
+   "topic": "login-events"
+  },
+  {
+   "event_id": "bd1186df-11e5-4515-809e-2497fa2af245",
+   "event_type": "login",
+   "timestamp": "2026-09-25T14:00:50.000Z",
+   "customer_id": "cust_demo_maya",
+   "device_id": "dev_e1a34736d198",
+   "ip_address": "19.191.240.115",
+   "location": {
+    "city": "Reykjavik",
+    "country": "IS"
+   },
+   "auth_method": "password",
+   "success": false,
+   "failure_reason": "bad_password",
+   "topic": "login-events"
+  },
+  {
+   "event_id": "23fbcb37-5362-46c0-b4c9-e90f4c8d5f9f",
+   "event_type": "login",
+   "timestamp": "2026-09-25T14:00:53.000Z",
+   "customer_id": "cust_demo_maya",
+   "device_id": "dev_e1a34736d198",
+   "ip_address": "47.143.90.189",
+   "location": {
+    "city": "Reykjavik",
+    "country": "IS"
+   },
+   "auth_method": "otp",
+   "success": true,
+   "failure_reason": null,
+   "topic": "login-events"
+  },
+  {
+   "event_id": "8c3bc40d-f269-4413-8238-b15df09bbfd3",
+   "event_type": "transaction",
+   "timestamp": "2026-09-25T14:00:59.000Z",
+   "customer_id": "cust_demo_maya",
+   "account_id": "acct_8d35d9fbe780",
+   "card_id": "card_be9b791c0523",
+   "amount": 1450.0,
+   "currency": "USD",
+   "merchant_id": "merch_03edb7be9b27",
+   "merchant_category": "gift_cards",
+   "channel": "online",
+   "device_id": null,
+   "location": {
+    "city": "Reykjavik",
+    "country": "IS",
+    "lat": 64.1466,
+    "lon": -21.9426
+   },
+   "topic": "transactions"
+  },
+  {
+   "event_id": "dc7baaab-ced8-4570-9da1-500c44e95bf5",
+   "event_type": "transaction",
+   "timestamp": "2026-09-25T14:01:51.000Z",
+   "customer_id": "cust_demo_omar",
+   "account_id": "acct_8a350f278670",
+   "card_id": "card_1d74eeeff244",
+   "amount": 4.6,
+   "currency": "USD",
+   "merchant_id": "merch_616458e8abfc",
+   "merchant_category": "online_retail",
+   "channel": "online",
+   "device_id": null,
+   "location": {
+    "city": "Chicago",
+    "country": "US",
+    "lat": 41.8781,
+    "lon": -87.6298
+   },
+   "topic": "transactions"
+  },
+  {
+   "event_id": "923a3ee4-7c5d-46e9-89e6-dc74c1f98421",
+   "event_type": "transaction",
+   "timestamp": "2026-09-25T14:01:54.448Z",
+   "customer_id": "cust_demo_omar",
+   "account_id": "acct_8a350f278670",
+   "card_id": "card_1d74eeeff244",
+   "amount": 1.9,
+   "currency": "USD",
+   "merchant_id": "merch_5015c099797c",
+   "merchant_category": "subscription",
+   "channel": "online",
+   "device_id": null,
+   "location": {
+    "city": "Chicago",
+    "country": "US",
+    "lat": 41.8781,
+    "lon": -87.6298
+   },
+   "topic": "transactions"
+  },
+  {
+   "event_id": "2ff3b5d9-c412-4a24-9ba6-4c2391f5fd07",
+   "event_type": "transaction",
+   "timestamp": "2026-09-25T14:01:56.891Z",
+   "customer_id": "cust_demo_omar",
+   "account_id": "acct_8a350f278670",
+   "card_id": "card_1d74eeeff244",
+   "amount": 7.12,
+   "currency": "USD",
+   "merchant_id": "merch_6d532663ba17",
+   "merchant_category": "online_retail",
+   "channel": "online",
+   "device_id": null,
+   "location": {
+    "city": "Chicago",
+    "country": "US",
+    "lat": 41.8781,
+    "lon": -87.6298
+   },
+   "topic": "transactions"
+  },
+  {
+   "event_id": "4fca44f5-838e-4dbf-a848-c2c550de60e1",
+   "event_type": "transaction",
+   "timestamp": "2026-09-25T14:01:58.977Z",
+   "customer_id": "cust_demo_omar",
+   "account_id": "acct_8a350f278670",
+   "card_id": "card_1d74eeeff244",
+   "amount": 4.42,
+   "currency": "USD",
+   "merchant_id": "merch_8ccf28d286e3",
+   "merchant_category": "gift_cards",
+   "channel": "online",
+   "device_id": null,
+   "location": {
+    "city": "Chicago",
+    "country": "US",
+    "lat": 41.8781,
+    "lon": -87.6298
+   },
+   "topic": "transactions"
+  },
+  {
+   "event_id": "68fdcf59-f099-4219-9c0e-ee05dc16576d",
+   "event_type": "transaction",
+   "timestamp": "2026-09-25T14:02:02.113Z",
+   "customer_id": "cust_demo_omar",
+   "account_id": "acct_8a350f278670",
+   "card_id": "card_1d74eeeff244",
+   "amount": 2.56,
+   "currency": "USD",
+   "merchant_id": "merch_03edb7be9b27",
+   "merchant_category": "gift_cards",
+   "channel": "online",
+   "device_id": null,
+   "location": {
+    "city": "Chicago",
+    "country": "US",
+    "lat": 41.8781,
+    "lon": -87.6298
+   },
+   "topic": "transactions"
+  },
+  {
+   "event_id": "40d9709e-7e14-4b1b-bdd9-f9a6fe9c27e1",
+   "event_type": "transaction",
+   "timestamp": "2026-09-25T14:02:04.848Z",
+   "customer_id": "cust_demo_omar",
+   "account_id": "acct_8a350f278670",
+   "card_id": "card_1d74eeeff244",
+   "amount": 6.44,
+   "currency": "USD",
+   "merchant_id": "merch_390ac0776b02",
+   "merchant_category": "subscription",
+   "channel": "online",
+   "device_id": null,
+   "location": {
+    "city": "Chicago",
+    "country": "US",
+    "lat": 41.8781,
+    "lon": -87.6298
+   },
+   "topic": "transactions"
+  },
+  {
+   "event_id": "fe970ecd-acf2-471a-8878-0f3264544bf3",
+   "event_type": "transaction",
+   "timestamp": "2026-09-25T14:02:07.030Z",
+   "customer_id": "cust_demo_omar",
+   "account_id": "acct_8a350f278670",
+   "card_id": "card_1d74eeeff244",
+   "amount": 8.06,
+   "currency": "USD",
+   "merchant_id": "merch_390ac0776b02",
+   "merchant_category": "subscription",
+   "channel": "online",
+   "device_id": null,
+   "location": {
+    "city": "Chicago",
+    "country": "US",
+    "lat": 41.8781,
+    "lon": -87.6298
+   },
+   "topic": "transactions"
+  },
+  {
+   "event_id": "abf4fee7-aff1-4652-b9f7-9434e10accbf",
+   "event_type": "login",
+   "timestamp": "2026-09-25T14:02:59.030Z",
+   "customer_id": "cust_demo_lena",
+   "device_id": "dev_9a53c18ee075",
+   "ip_address": "80.233.162.68",
+   "location": {
+    "city": "Tokyo",
+    "country": "JP"
+   },
+   "auth_method": "biometric",
+   "success": true,
+   "failure_reason": null,
+   "topic": "login-events"
+  },
+  {
+   "event_id": "3e0120b1-45b6-4b5b-a1dc-6a0c10f6de21",
+   "event_type": "transaction",
+   "timestamp": "2026-09-25T14:03:03.030Z",
+   "customer_id": "cust_demo_lena",
+   "account_id": "acct_5f1f7c78397d",
+   "card_id": "card_aa0ac470e5bc",
+   "amount": 92.4,
+   "currency": "USD",
+   "merchant_id": "merch_1e58982e524e",
+   "merchant_category": "restaurant",
+   "channel": "card_present",
+   "device_id": null,
+   "location": {
+    "city": "Tokyo",
+    "country": "JP",
+    "lat": 35.6762,
+    "lon": 139.6503
+   },
+   "topic": "transactions"
+  },
+  {
+   "event_id": "583b9389-3d64-4ab7-a7d3-05b8221967b9",
+   "event_type": "login",
+   "timestamp": "2026-09-25T14:03:23.030Z",
+   "customer_id": "cust_demo_lena",
+   "device_id": "dev_c26c16d5ec4a",
+   "ip_address": "102.87.214.112",
+   "location": {
+    "city": "London",
+    "country": "GB"
+   },
+   "auth_method": "password",
+   "success": true,
+   "failure_reason": null,
+   "topic": "login-events"
+  },
+  {
+   "event_id": "06d7a183-c97c-43fa-a420-38da1dcf9033",
+   "event_type": "login",
+   "timestamp": "2026-09-25T14:04:15.030Z",
+   "customer_id": "cust_demo_raj",
+   "device_id": "dev_6cd012cf8e3b",
+   "ip_address": "44.101.175.231",
+   "location": {
+    "city": "Austin",
+    "country": "US"
+   },
+   "auth_method": "otp",
+   "success": true,
+   "failure_reason": null,
+   "topic": "login-events"
+  },
+  {
+   "event_id": "b684df16-093c-4fe4-bf15-a1adb9fd3bba",
+   "event_type": "transaction",
+   "timestamp": "2026-09-25T14:04:23.030Z",
+   "customer_id": "cust_demo_raj",
+   "account_id": "acct_03132c797a45",
+   "card_id": "card_acb7f7ac468a",
+   "amount": 1560.0,
+   "currency": "USD",
+   "merchant_id": "merch_86d68771830d",
+   "merchant_category": "electronics",
+   "channel": "card_present",
+   "device_id": null,
+   "location": {
+    "city": "Austin",
+    "country": "US",
+    "lat": 30.2672,
+    "lon": -97.7431
+   },
+   "topic": "transactions"
+  }
+ ],
+ "alerts": [
+  {
+   "alert_id": "6a8e5e5bce214d3db92b5fcb44acbd3f",
+   "generated_at": "2026-09-25T14:00:47.500Z",
+   "customer_id": "cust_demo_maya",
+   "account_id": null,
+   "rule_triggered": "multiple_failed_logins",
+   "severity": "medium",
+   "related_event_ids": [
+    "eb295dee-d98f-4d60-bf55-50698d4af8ca",
+    "1fc04d21-6bb4-4283-9ae8-7ae202de0474",
+    "13ab27ff-666f-4eb3-aaec-3cccbfbaf304"
+   ],
+   "evidence": {
+    "device_id": "dev_e1a34736d198",
+    "window_seconds": "180",
+    "failed_count": "3",
+    "last_failure_reason": "bad_password",
+    "login_city": "Reykjavik",
+    "login_country": "IS"
+   },
+   "status": "new"
+  },
+  {
+   "alert_id": "19fd33b10643981d8ca149aabeddc259",
+   "generated_at": "2026-09-25T14:00:53.000Z",
+   "customer_id": "cust_demo_maya",
+   "account_id": null,
+   "rule_triggered": "impossible_travel",
+   "severity": "high",
+   "related_event_ids": [
+    "a5489898-806c-47fb-a717-839bb1c174a5",
+    "23fbcb37-5362-46c0-b4c9-e90f4c8d5f9f"
+   ],
+   "evidence": {
+    "second_device": "dev_e1a34736d198",
+    "first_country": "US",
+    "first_city": "New York",
+    "seconds_apart": "13",
+    "second_country": "IS",
+    "second_city": "Reykjavik",
+    "first_device": "dev_115012e2ccc0"
+   },
+   "status": "new"
+  },
+  {
+   "alert_id": "ea9dcecabd843f1044d710f6e73f391e",
+   "generated_at": "2026-09-25T14:00:53.000Z",
+   "customer_id": "cust_demo_maya",
+   "account_id": null,
+   "rule_triggered": "new_or_unusual_device",
+   "severity": "medium",
+   "related_event_ids": [
+    "23fbcb37-5362-46c0-b4c9-e90f4c8d5f9f"
+   ],
+   "evidence": {
+    "auth_method": "otp",
+    "device_id": "dev_e1a34736d198",
+    "home_country": "US",
+    "login_city": "Reykjavik",
+    "trusted_device_count": "2",
+    "login_country": "IS"
+   },
+   "status": "new"
+  },
+  {
+   "alert_id": "afe04a6e7abe226e3ce9cccaa15efa73",
+   "generated_at": "2026-09-25T14:00:59.000Z",
+   "customer_id": "cust_demo_maya",
+   "account_id": "acct_8d35d9fbe780",
+   "rule_triggered": "amount_anomaly",
+   "severity": "high",
+   "related_event_ids": [
+    "8c3bc40d-f269-4413-8238-b15df09bbfd3"
+   ],
+   "evidence": {
+    "customer_avg_amount": "64.0",
+    "amount": "1450.0",
+    "transaction_city": "Reykjavik",
+    "familiar_category": "false",
+    "multiple": "22.7",
+    "channel": "online",
+    "merchant_id": "merch_03edb7be9b27",
+    "transaction_country": "IS",
+    "merchant_category": "gift_cards"
+   },
+   "status": "new"
+  },
+  {
+   "alert_id": "a0280306c586ea5f64523ec42e89a1dc",
+   "generated_at": "2026-09-25T14:01:58.977Z",
+   "customer_id": "cust_demo_omar",
+   "account_id": "acct_8a350f278670",
+   "rule_triggered": "high_velocity",
+   "severity": "high",
+   "related_event_ids": [
+    "dc7baaab-ced8-4570-9da1-500c44e95bf5",
+    "923a3ee4-7c5d-46e9-89e6-dc74c1f98421",
+    "2ff3b5d9-c412-4a24-9ba6-4c2391f5fd07",
+    "4fca44f5-838e-4dbf-a848-c2c550de60e1"
+   ],
+   "evidence": {
+    "window_seconds": "120",
+    "total_amount": "18.04",
+    "transaction_count": "4",
+    "max_amount": "7.12",
+    "card_id": "card_1d74eeeff244"
+   },
+   "status": "new"
+  },
+  {
+   "alert_id": "18564597600098fb90895d3797605bc4",
+   "generated_at": "2026-09-25T14:03:23.030Z",
+   "customer_id": "cust_demo_lena",
+   "account_id": null,
+   "rule_triggered": "impossible_travel",
+   "severity": "high",
+   "related_event_ids": [
+    "abf4fee7-aff1-4652-b9f7-9434e10accbf",
+    "583b9389-3d64-4ab7-a7d3-05b8221967b9"
+   ],
+   "evidence": {
+    "second_device": "dev_c26c16d5ec4a",
+    "first_country": "JP",
+    "first_city": "Tokyo",
+    "seconds_apart": "24",
+    "second_country": "GB",
+    "second_city": "London",
+    "first_device": "dev_9a53c18ee075"
+   },
+   "status": "new"
+  },
+  {
+   "alert_id": "d9b1a0232a9b86eb1d6f45d4099a5390",
+   "generated_at": "2026-09-25T14:04:23.030Z",
+   "customer_id": "cust_demo_raj",
+   "account_id": "acct_03132c797a45",
+   "rule_triggered": "amount_anomaly",
+   "severity": "high",
+   "related_event_ids": [
+    "b684df16-093c-4fe4-bf15-a1adb9fd3bba"
+   ],
+   "evidence": {
+    "customer_avg_amount": "120.0",
+    "amount": "1560.0",
+    "transaction_city": "Austin",
+    "familiar_category": "true",
+    "multiple": "13.0",
+    "channel": "card_present",
+    "merchant_id": "merch_86d68771830d",
+    "transaction_country": "US",
+    "merchant_category": "electronics"
+   },
+   "status": "new"
+  }
+ ]
+}
