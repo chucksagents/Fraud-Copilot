@@ -1,0 +1,17 @@
+# Persists alerts.db across pod restarts (a plain emptyDir would lose it on
+# every reschedule -- and Developer Sandbox recycles pods after 12h of
+# continuous uptime, so that would happen constantly). 500Mi is comfortably
+# inside the sandbox's per-project storage quota for a SQLite file of this
+# project's demo scale.
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: alert-api-data
+  labels:
+    app: alert-api
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi

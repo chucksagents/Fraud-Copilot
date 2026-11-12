@@ -1,0 +1,10 @@
+# ImageStream that tracks the built alert-api image. `oc set image-lookup`
+# (see README.md step 6) lets the Deployment reference this by short name
+# (`alert-api:latest`) instead of a hardcoded internal-registry pullspec, so
+# nothing here needs to know your sandbox namespace.
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: alert-api
+  labels:
+    app: alert-api

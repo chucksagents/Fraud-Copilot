@@ -26,10 +26,7 @@ import time
 from typing import Any
 import uuid
 
-try:
-    from .common import Sink, load_fixture, load_schema, validate_event
-except ImportError:
-    from common import Sink, load_fixture, load_schema, validate_event
+from .common import Sink, load_fixture, load_schema, validate_event
 
 TRANSACTION_SCHEMA = load_schema("transaction.schema.json")
 

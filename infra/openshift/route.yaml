@@ -1,0 +1,21 @@
+# Gets a stable https://alert-api-<project>.<sandbox-apps-domain> host from
+# OpenShift's default router -- this is what replaces the cloudflared
+# tunnel URL in orchestrate/tools/alert_api_tools.py. Unlike the tunnel, it
+# doesn't change on every restart, and it's reachable from watsonx
+# Orchestrate SaaS as well as Developer Edition (no host.docker.internal
+# guesswork needed either).
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: alert-api
+  labels:
+    app: alert-api
+spec:
+  to:
+    kind: Service
+    name: alert-api
+  port:
+    targetPort: http
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect

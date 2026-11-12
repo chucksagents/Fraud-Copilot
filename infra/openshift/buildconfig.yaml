@@ -1,0 +1,25 @@
+# Builds services/alert-api's existing Dockerfile inside the cluster from a
+# binary (local directory) input -- no git push or external registry needed.
+# Kick it off with:
+#
+#   oc start-build alert-api --from-dir=services/alert-api --follow
+#
+# (run from the repo root -- --from-dir must point at the directory
+# containing the Dockerfile, matching its COPY paths).
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: alert-api
+  labels:
+    app: alert-api
+spec:
+  source:
+    type: Binary
+  strategy:
+    type: Docker
+    dockerStrategy:
+      dockerfilePath: Dockerfile
+  output:
+    to:
+      kind: ImageStreamTag
+      name: alert-api:latest
